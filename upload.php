@@ -35,7 +35,33 @@ $nomeArquivo= uniqid();
 $fezUp= move_uploaded_file($_FILES['arquivo']['tmp_name'], __DIR__ . $pastaDestino . $nomeArquivo . "." . $extensao);
 
 if($fezUp == true) {
-    header("location:index.php");
+    $conexao= mysqli_connect("localhost", "root", "", "upload-arquivos");
+    $slq= "INSERT INTO arquivo (nome_arquivo) VALUES ('$nomeArquivo.$extensao')";
+    $resultado= mysqli_query ($conexao, $slq);
+    if ($resultado != false ) {
+
+        //se for uma alteração de arquivo
+        if (isset($_POST['nome_arquivo'])) {
+            $apagou= unlink (__DIR__ . $pastaDestino . $_POST['nome_arquivo']);
+            if($apagou == true) {
+            $slq= "DELETE FROM arquivo WHERE nome_arquivo='" . $_POST['nome_arquivo'] . "'";
+            $resultado2= mysqli_query ($conexao, $slq);
+            if($resultado2 == false) {
+                echo "Erro ao apagar o arquivo do banco de dados.";
+                die();
+            }
+
+
+            } else {
+                echo "Erro ao apagar o arquivo antigo.";
+                die();
+            }
+        }
+        header("location:index.php");
+    } else { 
+        echo "Erro ao registrar o arquivo no banco de dados."; 
+    }
+
 } else {
     echo "Erro ao mover arquivo";
 }
