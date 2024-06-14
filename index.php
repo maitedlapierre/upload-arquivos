@@ -57,7 +57,7 @@
 
                 echo "</a>"; // feche a tag "a" (fechei o link)
 
-                echo " </td>"; // fechei a 2° coluna 
+                echo "</td>"; // fechei a 2° coluna 
 
                 echo "<td>"; // abri a 3° coluna 
 
@@ -82,6 +82,9 @@
     <script>
         function excluir(nome_arquivo) {
             confirm("Você tem certeza que deseja excluir o arquivo" + nome_arquivo + "?");
+            if(deletar ==  true){
+                window.location.href= "deletar.php?nome_arquivo=" + nome_arquvio;
+            }
         }
     </script>
 </body>
