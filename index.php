@@ -33,19 +33,21 @@
     <br> <br>
     <table>
         <tr>
-            <th>Nome do Arquivo </th>
+             <th colspan= "2"> Arquivo </th>
             <th colspan= "2"> Opções </th>
         </tr>
         </thead>
         <tbody> 
             
-            <?php
+        <?php
             foreach ($arquivos as $arquivo) {
                 $arq= $arquivo['nome_arquivo'];
 
                 echo "<tr>"; // iniciar a linha 
 
-                echo "<td> $arq </td>"; // 1° coluna com o nome do arquivo
+                echo "<td> <img src= 'uploads/$arq' width='100px' heigth='100px'> </td>"; // exibe imagem
+
+                echo "<td> <a href='upload/$arq'> $arq </a> </td>"; // 1° coluna com o nome do arquivo
 
                 echo "<td>"; // iniciar 2° coluna 
 
